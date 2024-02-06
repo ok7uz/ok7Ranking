@@ -11,8 +11,8 @@ class TeamAdmin(admin.ModelAdmin):
     list_filter = ('conf',)
     search_fields = ('name',)
 
-    fields = ('name', 'flag', 'rank_display', 'points_display', 'conf', 'conf_rank', 'previous_conf_rank')
-    readonly_fields = ('rank_display', 'points_display', 'conf')
+    fields = ('name', 'flag', 'flag_image', 'rank_display', 'points_display', 'conf', 'conf_rank', 'previous_conf_rank')
+    readonly_fields = ('rank_display', 'flag_image', 'points_display', 'conf')
 
     def rank_display(self, obj):
         change = obj.previous_rank - obj.rank
@@ -41,7 +41,7 @@ class TeamAdmin(admin.ModelAdmin):
         return format_html(html, change)
 
     def flag_image(self, obj):
-        html = f'<img style="border: 1px solid black; border-radius: 10%" src="{obj.flag.url}" width=30>'
+        html = f'<img style="border: 1px solid black; border-radius: 10%" src="{obj.flag}" width=30>'
 
         return format_html(html)
 
