@@ -1,0 +1,3 @@
+User-Agent: *
+
+Sitemap: https://ok7-rankings-91ee2cd70e74.herokuapp.com/sitemap

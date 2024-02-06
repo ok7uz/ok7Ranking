@@ -1,0 +1,1 @@
+web: gunicorn ok7Ranking.wsgi

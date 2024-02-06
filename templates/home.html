@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block og_meta %} {% if not request.GET.conf %} FIFA World {% else %} {{ request.GET.conf|upper }} {%endif %} Ranking LIVE - Updated Daily {% if request.GET.page %} - Page {{ request.GET.page }}{% endif %}{% endblock %}
+{% block og_title %} {% if not request.GET.conf %} FIFA World {% else %} {{ request.GET.conf|upper }} {%endif %} Ranking LIVE - Updated Daily {% if request.GET.page %} - Page {{ request.GET.page }}{% endif %}{% endblock %}
+
+{% block title %} {% if not request.GET.conf %} FIFA World {% else %} {{ request.GET.conf|upper }} {%endif %} Ranking LIVE - Updated Daily {% if request.GET.page %} - Page {{ request.GET.page }}{% endif %}{% endblock %}
+
+{% block header %}
+    <h1 class="m-0 align-middle display-6 " style="font-weight: 600; font-family: 'Roboto Slab'">
+        {% if not request.GET.conf %} FIFA {% else %} {{ request.GET.conf|upper }} {%endif %}
+        Ranking LIVE {% if request.GET.page %} - Page {{ request.GET.page }}{% endif %}
+    </h1>
+    <h2 class="fs-6 fw-normal">Last updated: {% now 'j F Y' %}</h2>
+{% endblock %}
+
+{% block body %}
+	<div class="col-md-6 m-auto">
+		<table class="table table-striped table-hover">
+			{% for team in teams %}
+			<tr>
+				<td class="fw-semibold">{{ team.rank }}</td>
+				<td class="text-start">{{ team.name }}</td>
+				<td>{{ team.points }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+
+	<!--<div class="row fixed-bottom p-0 lh-1">
+		<div class="col m-0 p-2 d-flex flex-column shadow-lg bg-primary bg-opacity-25" style="backdrop-filter: blur(5px);">
+			<svg height=20 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M400 0H176c-26.5 0-48.1 21.8-47.1 48.2c.2 5.3 .4 10.6 .7 15.8H24C10.7 64 0 74.7 0 88c0 92.6 33.5 157 78.5 200.7c44.3 43.1 98.3 64.8 138.1 75.8c23.4 6.5 39.4 26 39.4 45.6c0 20.9-17 37.9-37.9 37.9H192c-17.7 0-32 14.3-32 32s14.3 32 32 32H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H357.9C337 448 320 431 320 410.1c0-19.6 15.9-39.2 39.4-45.6c39.9-11 93.9-32.7 138.2-75.8C542.5 245 576 180.6 576 88c0-13.3-10.7-24-24-24H446.4c.3-5.2 .5-10.4 .7-15.8C448.1 21.8 426.5 0 400 0zM48.9 112h84.4c9.1 90.1 29.2 150.3 51.9 190.6c-24.9-11-50.8-26.5-73.2-48.3c-32-31.1-58-76-63-142.3zM464.1 254.3c-22.4 21.8-48.3 37.3-73.2 48.3c22.7-40.3 42.8-100.5 51.9-190.6h84.4c-5.1 66.3-31.1 111.2-63 142.3z"/></svg>
+			<span class="mt-1 fw-semibold" style="font-size: 0.8em">RANKING</span>
+		</div>
+		<div class="col p-2 d-flex flex-column shadow-lg bg-light bg-opacity-75" style="backdrop-filter: blur(5px);">
+			<svg height=20 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M417.3 360.1l-71.6-4.8c-5.2-.3-10.3 1.1-14.5 4.2s-7.2 7.4-8.4 12.5l-17.6 69.6C289.5 445.8 273 448 256 448s-33.5-2.2-49.2-6.4L189.2 372c-1.3-5-4.3-9.4-8.4-12.5s-9.3-4.5-14.5-4.2l-71.6 4.8c-17.6-27.2-28.5-59.2-30.4-93.6L125 228.3c4.4-2.8 7.6-7 9.2-11.9s1.4-10.2-.5-15l-26.7-66.6C128 109.2 155.3 89 186.7 76.9l55.2 46c4 3.3 9 5.1 14.1 5.1s10.2-1.8 14.1-5.1l55.2-46c31.3 12.1 58.7 32.3 79.6 57.9l-26.7 66.6c-1.9 4.8-2.1 10.1-.5 15s4.9 9.1 9.2 11.9l60.7 38.2c-1.9 34.4-12.8 66.4-30.4 93.6zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm14.1-325.7c-8.4-6.1-19.8-6.1-28.2 0L194 221c-8.4 6.1-11.9 16.9-8.7 26.8l18.3 56.3c3.2 9.9 12.4 16.6 22.8 16.6h59.2c10.4 0 19.6-6.7 22.8-16.6l18.3-56.3c3.2-9.9-.3-20.7-8.7-26.8l-47.9-34.8z"/></svg>
+			<span class="mt-1 fw-semibold" style="font-size: 0.8em">MATCHES</span>
+		</div>
+		<div class="col p-2 d-flex flex-column shadow-lg bg-light bg-opacity-75" style="backdrop-filter: blur(5px);">
+			<svg height=20 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M32 32c17.7 0 32 14.3 32 32V400c0 8.8 7.2 16 16 16H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H80c-44.2 0-80-35.8-80-80V64C0 46.3 14.3 32 32 32zM160 224c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V256c0-17.7 14.3-32 32-32zm128-64V320c0 17.7-14.3 32-32 32s-32-14.3-32-32V160c0-17.7 14.3-32 32-32s32 14.3 32 32zm64 32c17.7 0 32 14.3 32 32v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32zM480 96V320c0 17.7-14.3 32-32 32s-32-14.3-32-32V96c0-17.7 14.3-32 32-32s32 14.3 32 32z"/></svg>
+			<span class="mt-1 fw-semibold" style="font-size: 0.8em">STATS</span>
+		</div>
+		<div class="col p-2 d-flex flex-column bg-warning bg-opacity-50">
+			<span>LOGO</span>
+			<span>xxxxx</span>
+		</div>
+	</div>-->
+	</div>
+{% endblock %}

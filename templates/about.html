@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load cal %}
+
+{% block og_meta %} FIFA Points Calculator. Calculate points changes FIFA matches {% endblock %}
+{% block og_title %} About - ok7Rankings {% endblock %}
+
+{% block title %} About - ok7Rankings {% endblock %}
+
+{% block header %}
+    <h1 class="m-0 align-middle text-white display-6 fw-semibold">
+        About
+    </h1>
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6 m-auto" style="text-align: justify">
+<b>ok7Rankings</b> (<span class="text-primary">https://ok7-rankings-91ee2cd70e74.herokuapp.com</span>) is a site that provides real-time live FIFA Men's World Ranking based on <a href="https://www.fifa.com/fifa-world-ranking/procedure/men">FIFA Men's Ranking Procedure</a>. Through this site you will get information about:
+<ul>
+<li>Current FIFA Men's World Ranking (Updated daily).
+<li>The current ranking of each confederation is formed separately (UEFA, CAF, CONMEBOL, CONCACAF, AFC, OFC).
+<li>The page of each national team and information about the points gained or lost in the last matches.
+<li>Information about points gained or lost by national teams in the last matches.
+<li>Fixtures and winning odds based on FIFA points.
+<li>The statistics are about the teams that have made the biggest increase or decrease in the last games.
+<li>Information about how many FIFA points the teams will earn or lose in the upcoming matches (Calculator)
+</ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load cal %}
+
+{% block og_canonical %}{% url 'country' team.short_name %}{% endblock %}
+{% block og_meta %} {{ team.name }} national team results, FIFA rank and points {% endblock %}
+{% block og_title %} {{ team.name }} national team results, FIFA rank and points {% endblock %}
+
+{% block canonical %}{% url 'country' team.short_name %}{% endblock %}
+{% block meta %} {{ team.name }} national team results, FIFA rank and points {% endblock %}
+{% block title %} {{ team.name }} national team results, FIFA rank and points {% endblock %}
+
+{% block header %}
+    <h1 class="m-0 align-middle display-6 text-white" style="font-weight: 500">
+        {{ team.name|upper }}
+    </h1>
+    <h2 class="fs-6 text-white m-0 mb-3">{{ team.name }} National Football Team - {{ team.conf|upper }}
+    </h2>
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6 text-center m-auto">
+        <div class="row mb-4">
+	<div class="col-auto pt-2">
+		<img class="m-0" src="{{ team.flag.url }}" width="82" height="62" alt="{{ team.name }}'s flag" loading="lazy" style="border: 1px solid black; border-radius: 4px">
+	</div>
+        <div class="col ps-0">
+        <div class="row my-2 mx-1">
+	<div class="col-auto p-0 ps-0 pe-1 text-white fw-semibold condensed">
+		{% if team.rank_change > 0 %}
+			<div class="d-flex border border-white" style="background: #D04343; width: 25px; font-size: 13px; height: 24px; justify-content: center; align-items:center; border-radius: 4px;">
+				{{ team.rank_change }}
+			</div>
+		{% elif team.rank_change < 0 %}
+			<div class="d-flex border border-white" style="background: #418500D0; width: 25px; font-size: 13px; height: 24px; justify-content: center; align-items:center; border-radius: 4px;">
+				{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
+			</div>
+		{% endif %}
+	</div>
+	<div class="col-auto p-0"> 
+		<div class="d-flex border border-white fw-semibold text-white condensed" style="background: #4279A8; width: 35px; font-size: 14px; height: 24px; justify-content: center; align-items:center; border-radius: 4px;">
+			{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
+		</div>
+	</div>
+	<div class="col py-0 px-0 ps-1 align-middle text-start">
+                <div class="d-flex px-2" style="font-size: 14px; height: 24px; align-items:center; background: #F0F0F0; border-top-left-radius: 4px; border-bottom-right-radius: 4px;">
+			{{ team.name }}
+		</div>
+	</div>
+</div>
+<div class="row my-2 mx-1">
+        <div class="col"></div>
+	<div class="col-auto py-0 ps-1 pe-0 condensed">
+		<div class="d-flex text-white border border-white" style="background: #4279A8; width: 70px; font-size: 16px; height: 30px; justify-content: center; align-items:center; border-radius: 4px;">
+			{{ team.points }}
+		</div>
+	</div>
+	<div class="col-auto py-0 px-0 ps-1 condensed text-white">
+		{% if team.points_change < 0 %}
+			<div class="d-flex border border-white" style="background: #D04343; width: 55px; font-size: 15px; height: 30px; justify-content: center; align-items:center; border-radius: 4px;">
+				{{ team.points_change|floatformat:2 }}
+			</div>
+		{% elif team.points_change > 0 %}
+			<div class="d-flex border border-white" style="background: #418500D0; width: 55px; font-size: 15px; height: 30px; justify-content: center; align-items:center; border-radius: 4px;">
+				+{{ team.points_change|floatformat:2 }}
+			</div>
+		{% endif %}
+	</div>
+</div>
+</div></div>
+
+        {% if not matches %}
+            <div class="mt-3 py-1 bg-secondary bg-opacity-25 text-dark py-2 " style="font-size: 1.1em; border-radius: 3px;">
+                NO MATCHES
+            </div>
+	{% else %}
+		<div class="p-0 pe-1 text-white" style="margin-bottom: 12px">
+                       		<div style="padding: 2px 0; background:  #4279A8; font-size: 14px; border-radius: 4px;">MATCHES</div>
+			</div>
+        {% endif %}
+
+        {% regroup matches by date as date_list %}
+        {% for date in date_list %}
+            
+            {% regroup date.list by tournament as tour_list %}
+             
+            {% for tour in tour_list %}
+                {% for match in tour.list %}
+                  <div class="row mx-0 p-0" style="margin-bottom: 12px">
+			<div class="col-auto d-flex px-2 condensed" style="background: #EEE; font-size: 14px; justify-content: center; align-items:center; border-radius: 4px;">
+                       		{{ date.grouper|date:"d.m" }}	
+			</div>
+			<div class="col p-0">
+                   <a class="row my-0 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' match.team1.short_name %}">
+	<div class="col-auto py-0 ps-1 pe-0" style="font-size: 13px; justify-content: center; align-items:center">
+		<img class="m-0 border border-dark" src="{{ match.team1.flag.url }}" width="28" height="21.5" alt="{{ match.team1.name }}'s flag" style="border-radius: 10%; border: 1px solid black" loading="lazy">
+	</div>
+	<div class="col py-0 px-0 ps-1 align-middle text-start">
+                <div class="d-flex px-2" style="background: #F0F0F0; font-size: 14px; height: 21px; align-items:center; border-radius: 4px;">
+			{{ match.team1.name }}
+		</div>
+	</div>
+	{%if match.is_penalty %}
+        <div class="col-auto py-0 ps-1 pe-0">
+		<div class="d-flex border border-white" style="border-radius: 4px; background: #EEE; width: 25px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+			{{ match.goal1_pen }}
+		</div>
+	</div>
+        {% endif %}
+	<div class="col-auto py-0 ps-1 pe-0">
+		<div class="d-flex fw-semibold border border-white" style="border-radius: 4px; background: #4279A860; width: 25px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+			{% if match.goal1 is not None %}{{ match.goal1 }}{% else %}-{% endif %}
+		</div>
+	</div>
+	<div class="col-auto py-0 ps-1 text-white pe-0 condensed">
+		{% if match.points1_change < 0 %}
+			<div class="d-flex border border-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+				{{ match.points1_change|floatformat:2 }}
+			</div>
+		{% elif match.points1_change > 0 %}
+			<div class="d-flex border border-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+				+{{ match.points1_change|floatformat:2 }}
+			</div>
+                {% elif match.points1_change == 0 %}
+                        <div class="d-flex text-white" style="border-radius: 4px; width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+				.
+			</div>
+		{% endif %}
+	</div>
+</a>
+
+<a class="row mb-0 mx-1 text-decoration-none" style="color: inherit; margin-top: 3px" href="{% url 'country' match.team2.short_name %}">
+	<div class="col-auto py-0 ps-1 pe-0" style="font-size: 13px; justify-content: center; align-items:center">
+		<img class="m-0 border border-dark" src="{{ match.team2.flag.url }}" width="28" height="21.5" alt="{{ match.team2.name }}'s flag" style="border-radius: 10%; border: 1px solid black" loading="lazy">
+	</div>
+	<div class="col py-0 px-0 ps-1 align-middle text-start">
+                <div class="d-flex px-2" style="border-radius: 4px; background: #F0F0F0; font-size: 14px; height: 21px; align-items:center">
+			{{ match.team2.name }}
+		</div>
+	</div>
+        {%if match.is_penalty %}
+        <div class="col-auto py-0 ps-1 pe-0">
+		<div class="d-flex border border-white" style="border-radius: 4px; background: #EEE; width: 25px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+			{{ match.goal2_pen }}
+		</div>
+	</div>
+        {% endif %}
+	<div class="col-auto py-0 ps-1 pe-0">
+		<div class="d-flex fw-semibold border border-white" style="border-radius: 4px; background: #4279A860; width: 25px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+			{% if match.goal2 is not None %}{{ match.goal2 }}{% else %}-{% endif %}
+		</div>
+	</div>
+	<div class="col-auto py-0 ps-1 pe-0 condensed text-white">
+		{% if match.points2_change < 0 %}
+			<div class="d-flex border border-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+				{{ match.points2_change|floatformat:2 }}
+			</div>
+		{% elif match.points2_change > 0 %}
+			<div class="d-flex border border-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+				+{{ match.points2_change|floatformat:2 }}
+			</div>
+                {% elif match.points2_change == 0 %}
+                        <div class="d-flex text-white" style="border-radius: 4px; width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
+				.
+			</div>
+		{% endif %}
+	</div>
+</a>
+</div>
+</div>
+                {%  endfor %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
