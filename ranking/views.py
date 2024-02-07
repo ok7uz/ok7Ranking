@@ -27,7 +27,7 @@ def get_teams(conf=None):
 
     return teams
 
-@cache_page(1)
+@cache_page(300)
 def home_view(request):
     conf = request.GET.get('conf')
     page_number = request.GET.get("page")
@@ -37,7 +37,7 @@ def home_view(request):
     if teams is None:
         return redirect('home_view')
     
-    paginator = Paginator(teams, 250)
+    paginator = Paginator(teams, 50)
     teams = paginator.get_page(page_number)
 
     if page_number and int(page_number) > paginator.num_pages:
@@ -50,7 +50,7 @@ def home_view(request):
     })
 
 
-@cache_page(1)
+@cache_page(300)
 def matches_view(request):
     page_number = request.GET.get("page")
     matches = Match.objects.filter(goal1__isnull=False).order_by('-date', 'tournament')
@@ -68,7 +68,7 @@ def matches_view(request):
 
 
 
-@cache_page(1)
+@cache_page(300)
 def fixtures_view(request):
     fixtures = Match.objects.filter(goal1__isnull=True).order_by('date', 'tournament')
 
@@ -96,7 +96,7 @@ def country_view(request, country):
     })
 
 
-@cache_page(1)
+@cache_page(300)
 def stats_view(request):
     teams = Team.objects.all().annotate(
         points_change=F('points') - F('previous_points'),
