@@ -24,6 +24,7 @@ NO MATCHES
                 </div>
         {% endif %}
 
+
         {% regroup matches by date as date_list %}
         {% for date in date_list %}
             {% regroup date.list by tournament as tour_list %}

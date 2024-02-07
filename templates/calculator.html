@@ -8,10 +8,10 @@
 {% block title %}FIFA Points Calculator. Calculate points changes FIFA matches {% endblock %}
 
 {% block header %}
-    <h1 class="m-0 align-middle text-white display-6 fw-semibold">
+    <h1 class="m-0 align-middle display-6 fw-semibold">
         CALCULATOR
     </h1>
-    <h2 class="fs-6 text-white">Teams Points Changes Calculator</h2>
+    <h2 class="fs-6">Teams Points Changes Calculator</h2>
 {% endblock %}
 
 {% block body %}
@@ -21,160 +21,80 @@
 			NO MATCHES
 		</div>
         {% endif %}
-        {% regroup matches by date as date_list %}
-		<div class="row m-0 mx-1">
-			<div class="col py-0 px-0 align-middle text-start"></div>
-			<div class="col-auto py-0 px-1 condensed">
-				<div class="d-flex" style="width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
-					W1
-				</div>
+		
+		{% regroup matches by date as date_list %}
+        {% for date in date_list %}
+            {% regroup date.list by tournament as tour_list %}
+            {% for tour in tour_list %}
+			
+                <div class="p-0 text-white" style="margin-top: 12px">
+                       		<div style="padding: 2px 0; background: #4279A8; font-size: 14px;">{{ tour.grouper }}</div>
 			</div>
-			<div class="col-auto py-0 px-0 condensed">
-				<div class="d-flex" style="width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
-					Draw
-				</div>
-			</div>
-			<div class="col-auto py-0 px-1 condensed">
-				<div class="d-flex" style="width: 45px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
-					W2
-				</div>
-			</div>
-		</div>
-        		{% for date in date_list %}
-            			{% regroup date.list by tournament as tour_list %}
-				<div class="m-0 p-0 mb-3">
-            			{% for tour in tour_list %}
-                			<div class="p-0 pe-1 text-white" style="margin-bottom: 12px">
-                       				<div style="padding: 2px 0; background: #4279A8; font-size: 14px; border-radius: 4px;">{{ tour.grouper }}</div>
-					</div>
-                		{% for match in tour.list %}
-				<div class="row mx-0 p-0" style="margin-bottom: 12px">
-					<div class="col-auto px-2 d-flex condensed" style="border-radius: 4px; font-size: 14px; background: #EEE; justify-content: center; align-items:center">
-                       				{{ date.grouper|date:"d.m" }}	
-					</div>
-					<div class="col p-0">
-                  				 <a class="row my-0 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' match.team1.short_name %}">
-							<div class="col-auto py-0 ps-1 pe-0" style="font-size: 13px; justify-content: center; align-items:center">
-								<img class="m-0" src="{{ match.team1.flag.url }}" width="28" height="21.5" alt="{{ match.team1.name }}'s flag" style="border-radius: 10%; border: 1px solid black" loading="lazy">
-							</div>
-							<div class="col py-0 px-0 ps-1 align-middle text-start">
-                						<div class="d-flex px-2" style="border-radius: 4px; background: #EEE; font-size: 14px; height: 21px; align-items:center">
-									{{ match.team1.name }}
-								</div>
-							</div>
-							<div class="col-auto py-0 px-1 condensed">
-								{% calc match 1 1 0 as point %}
-		{% if point < 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				{{ point|floatformat:2 }}
-			</div>
-		{% elif point > 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				+{{ point|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex border border-white" style="border-radius: 4px; background: #E7E7E7; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				0.00
-			</div>
-		{% endif %}
-	</div>
-	<div class="col-auto py-0 px-0 condensed">
-{% calc match 1 1 1 as point %}
-		{% if point < 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				{{ point|floatformat:2 }}
-			</div>
-		{% elif point > 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				+{{ point|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex border border-white" style="border-radius: 4px; background: #E7E7E7; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				0.00
-			</div>
-		{% endif %}
-	</div>
-	<div class="col-auto py-0 px-1 condensed">
-{% calc match 1 0 1 as point %}
-		{% if point < 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				{{ point|floatformat:2 }}
-			</div>
-		{% elif point > 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				+{{ point|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex border border-white" style="border-radius: 4px; background: #E7E7E7; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				0.00
-			</div>
-		{% endif %}
-</div>
-	</a>
 
-<a class="row mb-0 mx-1 text-decoration-none" style="color: inherit; margin-top: 3px" href="{% url 'country' match.team2.short_name %}">
-	<div class="col-auto py-0 ps-1 pe-0" style="font-size: 13px; justify-content: center; align-items:center">
-		<img class="m-0" src="{{ match.team2.flag.url }}" width="28" height="21.5" alt="{{ match.team2.name }}'s flag" style="border-radius: 10%; border: 1px solid black" loading="lazy">
-	</div>
-	<div class="col py-0 px-0 ps-1 align-middle text-start">
-                <div class="d-flex px-2" style="background: #EEE; font-size: 14px; height: 21px; align-items:center; border-radius: 4px;">
-			{{ match.team2.name }}
-		</div>
-	</div>
-	<div class="col-auto py-0 px-1 condensed">
-{% calc match 2 0 1 as point %}
-		{% if point < 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				{{ point|floatformat:2 }}
-			</div>
-		{% elif point > 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				+{{ point|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex border border-white" style="border-radius: 4px; background: #E7E7E7; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				0.00
-			</div>
-		{% endif %}
-	</div>
-	<div class="col-auto py-0 px-0 condensed">
-{% calc match 2 1 1 as point %}
-		{% if point < 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				{{ point|floatformat:2 }}
-			</div>
-		{% elif point > 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				+{{ point|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex border border-white" style="border-radius: 4px; background: #E7E7E7; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				0.00
-			</div>
-		{% endif %}
-	</div>
-	<div class="col-auto py-0 px-1 condensed">
-{% calc match 2 1 0 as point %}
-		{% if point < 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #D04343; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				{{ point|floatformat:2 }}
-			</div>
-		{% elif point > 0 %}
-			<div class="d-flex border border-white text-white" style="border-radius: 4px; background: #418500D0; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				+{{ point|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex border border-white" style="border-radius: 4px; background: #E7E7E7; width: 45px; font-size: 12px; height: 21px; justify-content: center; align-items:center">
-				0.00
-			</div>
-		{% endif %}
-</div>
-</a>
-</div>
-</div>
+                {% for match in tour.list %}
+				<table class="table table-striped small table-bordered border-white my-2">
+					<tr>
+						<td rowspan=2 class="fw-semibold py-0 align-middle small">{{ date.grouper|date:"d.m" }}</td>
+						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team1.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle w-100" >{{ match.team1.name|truncatechars:20 }}</td>
+						{% calc match 1 1 0 as point %}
+						{% if point > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+						{% elif point < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+						{% else %}
+							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+						{% endif %}
+						{% calc match 1 1 1 as point %}
+						{% if point > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+						{% elif point < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+						{% else %}
+							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+						{% endif %}
+						{% calc match 1 0 1 as point %}
+						{% if point > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+						{% elif point < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+						{% else %}
+							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+						{% endif %}
+					</tr>
+					<tr>
+						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team2.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle w-100" >{{ match.team2.name|truncatechars:18 }}</td>
+						{% calc match 2 0 1 as point %}
+						{% if point > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+						{% elif point < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+						{% else %}
+							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+						{% endif %}
+						{% calc match 2 1 1 as point %}
+						{% if point > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+						{% elif point < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+						{% else %}
+							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+						{% endif %}
+						{% calc match 2 1 0 as point %}
+						{% if point > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+						{% elif point < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+						{% else %}
+							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+						{% endif %}
+					</tr>
+				</table>
+
                 {%  endfor %}
             {% endfor %}
-</div>
         {% endfor %}
+
     </div>
 {% endblock %}

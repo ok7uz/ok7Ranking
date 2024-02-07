@@ -116,9 +116,9 @@ def stats_view(request):
     })
 
 
-@cache_page(60 * 5)
+@cache_page(300)
 def calculator_view(request):
-    fixtures = Match.objects.all().filter(goal1__isnull=True).order_by('date', 'tournament')
+    fixtures = Match.objects.filter(goal1__isnull=True).order_by('date', 'tournament')
 
     return render(request, 'calculator.html', {
         'matches': fixtures,
