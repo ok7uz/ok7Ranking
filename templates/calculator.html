@@ -39,27 +39,27 @@
 						<td class="text-start py-0 align-middle w-100" >{{ match.team1.name|truncatechars:20 }}</td>
 						{% calc match 1 1 0 as point %}
 						{% if point > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
 						{% elif point < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
 						{% else %}
-							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+							<td class="p-0 small align-middle border-2"><span class="d-block" style="width: 47px">0.00</span></td>
 						{% endif %}
 						{% calc match 1 1 1 as point %}
 						{% if point > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
 						{% elif point < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
 						{% else %}
-							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+							<td class="p-0 small align-middle border-2"><span class="d-block" style="width: 47px">0.00</span></td>
 						{% endif %}
 						{% calc match 1 0 1 as point %}
 						{% if point > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
 						{% elif point < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
 						{% else %}
-							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+							<td class="p-0 small align-middle border-2"><span class="d-block" style="width: 47px">0.00</span></td>
 						{% endif %}
 					</tr>
 					<tr>
@@ -67,27 +67,27 @@
 						<td class="text-start py-0 align-middle w-100" >{{ match.team2.name|truncatechars:18 }}</td>
 						{% calc match 2 0 1 as point %}
 						{% if point > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
 						{% elif point < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
 						{% else %}
-							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+							<td class="p-0 small align-middle border-2"><span class="d-block" style="width: 47px">0.00</span></td>
 						{% endif %}
 						{% calc match 2 1 1 as point %}
 						{% if point > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
 						{% elif point < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
 						{% else %}
-							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+							<td class="p-0 small align-middle border-2"><span class="d-block" style="width: 47px">0.00</span></td>
 						{% endif %}
 						{% calc match 2 1 0 as point %}
 						{% if point > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ point }}</span></td>
 						{% elif point < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
+							<td class="text-white p-0 small align-middle border-2" style="background: #D04343"><span class="d-block" style="width: 47px">{{ point }}</span></td>
 						{% else %}
-							<td class="p-0 small align-middle"><span class="d-block" style="width: 47px">0.00</span></td>
+							<td class="p-0 small align-middle border-2"><span class="d-block" style="width: 47px">0.00</span></td>
 						{% endif %}
 					</tr>
 				</table>
