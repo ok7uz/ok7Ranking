@@ -27,11 +27,11 @@
 		<a class="row my-2 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' team.short_name %}">
 			<div class="col-auto p-0 ps-0 pe-0 text-white condensed">
 				{% if team.rank_change > 0 %}
-					<div class="d-flex" style="background: #C43131; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
+					<div class="d-flex bg-danger bg-opacity-75" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
 						{{ team.rank_change }}
 					</div>
 				{% elif team.rank_change < 0 %}
-					<div class="d-flex" style="background: #458600; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
+					<div class="d-flex bg-success bg-opacity-75" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
 						{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
 					</div>
 				{% else %}
