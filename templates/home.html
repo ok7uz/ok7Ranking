@@ -19,9 +19,9 @@
 			{% for team in teams %}
 			<tr>
 				<td>
-					{% if team.rank change > 0 %}
+					{% if team.rank_change > 0 %}
 						<span class="text-danger text-opacity-75">-{{ team.rank_change }}</span>
-					{% elif team.rank change < 0 %}
+					{% elif team.rank_change < 0 %}
 						<span class="text-success text-opacity-75">+{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</span>
 					{% endif %}
 				<td class="fw-semibold">{{ team.rank }}</td>
