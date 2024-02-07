@@ -53,7 +53,7 @@ def home_view(request):
 @cache_page(1)
 def matches_view(request):
     page_number = request.GET.get("page")
-    matches = Match.objects.filter(goal1__isnull=False).order_by('-date', 'tournament')[:10]
+    matches = Match.objects.filter(goal1__isnull=False).order_by('-date', 'tournament')
 
     paginator = Paginator(matches, 25)
     matches = paginator.get_page(page_number)

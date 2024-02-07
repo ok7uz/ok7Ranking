@@ -9,10 +9,10 @@
 {% block title %} FIFA Matches and teams' points {% endblock %}
 
 {% block header %}
-    <h1 class="m-0 align-middle display-6 text-white" style="font-weight: 500">
+    <h1 class="m-0 align-middle display-6" style="font-weight: 500">
         MATCHES
     </h1>
-    <h2 class="fs-6 text-white">International FIFA National Football Teams Matches</h2>
+    <h2 class="fs-6 ">International FIFA National Football Teams Matches</h2>
 {% endblock %}
 
 {% block body %}
@@ -34,44 +34,43 @@ NO MATCHES
                 {% endfor %}
             {% endif %}
         </p>
-		<table class="table table-striped small table-bordered border-white">
         {% regroup matches by date as date_list %}
         {% for date in date_list %}
             
             {% regroup date.list by tournament as tour_list %}
              
             {% for tour in tour_list %}
+			<table class="table table-striped small table-bordered border-white">
                        		<tr>
-								<td colspan=7>{{ tour.grouper }}</td>
+								<td colspan=7 style="line-height: 1"><span class="fw-semibold">{{ tour.grouper }}</span><br>{{ date.grouper }}</td>
 							</tr>
 
                 {% for match in tour.list %}
 				<tr>
-					<td class="p-0"><img style="margin: 1px 0; border: 1px solid black" src="{{ match.team1.flag }}" height="22"></td>
-					<td class="py-0 col">{{ match.team1.short_name|upper }}</td>
+					<td class="p-0" style="width: 29.333px"><img src="{{ match.team1.flag }}" height="22"></td>
+					<td class="py-0 align-middle col text-start">{{ match.team1.short_name|upper }}</td>
 					{% if match.points1_change > 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #008100C0">+{{ match.points1_change }}</td>
+						<td class="text-white py-0 small align-middle px-1" style="background: #008100C0; width: 47px;">+{{ match.points1_change }}</td>
 					{% elif match.points1_change < 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #DF0000D0">{{ match.points1_change }}</td>
+						<td class="text-white py-0 small align-middle px-1" style="background: #DF0000D0; width: 47px;">{{ match.points1_change }}</td>
 					{% else %}
-						<td></td>
+						<td class="py-0 align-middle" style="width: 47px;">-</td>
 					{% endif %}
-					<td class="text-white py-0 small text-nowrap" style="width: min-content; background: #4279A8">{{ match.goal1 }} - {{ match.goal2 }}</td>
+					<td class="py-0 bg-warning text-nowrap px-2 align-middle" style="width: 65px;">{% if match.is_penalty %}<sup>{{ match.goal1_pen }}</sup>{% endif %} {{ match.goal1 }} - {{ match.goal2 }} {% if match.is_penalty %}<sup>{{ match.goal2_pen }}</sup>{% endif %}</td>
 					{% if match.points2_change > 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #008100C0">+{{ match.points2_change }}</td>
+						<td class="text-white py-0 small align-middle px-1" style="background: #008100C0; width: 47px;">+{{ match.points2_change }}</td>
 					{% elif match.points2_change < 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #DF0000D0">{{ match.points2_change }}</td>
+						<td class="text-white py-0 small align-middle px-1" style="background: #DF0000D0; width: 47px;">{{ match.points2_change }}</td>
 					{% else %}
-						<td></td>
+						<td class="py-0" style="width: 47px;">-</td>
 					{% endif %}
-					<td class="py-0 col">{{ match.team2.short_name|upper }}</td>
-					<td class="p-0"><img style="margin: 1px 0; border: 1px solid black" src="{{ match.team2.flag }}" height="22"></td>
+					<td class="py-0 col text-end align-middle">{{ match.team2.short_name|upper }}</td>
+					<td class="p-0" style="width: 29.333px"><img src="{{ match.team2.flag }}" height="22"></td>
 				</tr>
                  
                 {%  endfor %}
-             </div>
+			</table>
             {% endfor %}
         {% endfor %}
-			</table>
     </div>
 {% endblock %}
