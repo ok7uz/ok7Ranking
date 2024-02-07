@@ -17,59 +17,65 @@
 
 {% block body %}
     <div class="text-center col-md-6 m-auto">
-        {% if not matches %}
-            <div class="mt-5 py-1 bg-secondary bg-opacity-25 text-black py-2 " style="font-size: 1.1em; border-radius: 2px;">
-NO MATCHES
-                </div>
-        {% endif %}
+		{% if not matches %}
+		<div class="mt-5 py-1 bg-secondary bg-opacity-25 text-black py-2 " style="font-size: 1.1em; border-radius: 2px;">
+			NO MATCHES
+		</div>
+		{% endif %}
   
-         <p class="fw-normal py-2">
+        <p class="fw-normal py-2">
             {% if paginator.num_pages > 1 %}
                 {% for i in paginator.page_range %}
                     {% if i > 1 %}
-                        <a class="px-1 btn text-decoration-none py-1 text-center" href="{% url 'matches' %}?page={{ i }}" style="width: 30px; {% if request.GET.page == i|slugify or 'page' not in request.GET and i == 1 %} background: #4279A8; color: white; {% else %} background: #DDD; color: black; {% endif %} border-radius: 4px; font-size: 0.9em; line-height: 1.1">{{ i }}</a>
+                        <a class="text-decoration-none py-1 px-2 text-center" href="{% url 'matches' %}?page={{ i }}" style="width: 30px; {% if request.GET.page == i|slugify or 'page' not in request.GET and i == 1 %} background: #4279A8; color: white; {% else %} background: #DDD; color: black; {% endif %} font-size: 0.9em; line-height: 1.1">{{ i }}</a>
                     {% else %}
-                        <a class="px-1 btn text-decoration-none py-1 text-center" href="{% url 'matches' %}" style="width: 30px; {% if request.GET.page == i|slugify or 'page' not in request.GET and i == 1 %} background: #4279A8; color: white; {% else %} background: #DDD; color: black; {% endif %} border-radius: 4px; font-size: 0.9em; line-height: 1.1">{{ i }}</a>
+                        <a class="text-decoration-none py-1 px-2 text-center" href="{% url 'matches' %}" style="width: 30px; {% if request.GET.page == i|slugify or 'page' not in request.GET and i == 1 %} background: #4279A8; color: white; {% else %} background: #DDD; color: black; {% endif %} font-size: 0.9em; line-height: 1.1;">{{ i }}</a>
                     {% endif %}
                 {% endfor %}
             {% endif %}
         </p>
+
         {% regroup matches by date as date_list %}
         {% for date in date_list %}
-            
             {% regroup date.list by tournament as tour_list %}
-             
             {% for tour in tour_list %}
-			<table class="table table-striped small table-bordered border-white">
-                       		<tr>
-								<td colspan=7 style="line-height: 1"><span class="fw-semibold">{{ tour.grouper }}</span><br>{{ date.grouper }}</td>
-							</tr>
+			
+                <div class="p-0 text-white" style="margin-bottom: 12px">
+                       		<div style="padding: 2px 0; background: #4279A8; font-size: 14px;">{{ tour.grouper }}</div>
+			</div>
 
                 {% for match in tour.list %}
-				<tr>
-					<td class="p-0" style="width: 29.333px"><img src="{{ match.team1.flag }}" height="22"></td>
-					<td class="py-0 align-middle col text-start">{{ match.team1.short_name|upper }}</td>
-					{% if match.points1_change > 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #008100C0; width: 47px;">+{{ match.points1_change }}</td>
-					{% elif match.points1_change < 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #DF0000D0; width: 47px;">{{ match.points1_change }}</td>
-					{% else %}
-						<td class="py-0 align-middle" style="width: 47px;">-</td>
-					{% endif %}
-					<td class="py-0 bg-warning text-nowrap px-2 align-middle" style="width: 65px;">{% if match.is_penalty %}<sup>{{ match.goal1_pen }}</sup>{% endif %} {{ match.goal1 }} - {{ match.goal2 }} {% if match.is_penalty %}<sup>{{ match.goal2_pen }}</sup>{% endif %}</td>
-					{% if match.points2_change > 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #008100C0; width: 47px;">+{{ match.points2_change }}</td>
-					{% elif match.points2_change < 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #DF0000D0; width: 47px;">{{ match.points2_change }}</td>
-					{% else %}
-						<td class="py-0" style="width: 47px;">-</td>
-					{% endif %}
-					<td class="py-0 col text-end align-middle">{{ match.team2.short_name|upper }}</td>
-					<td class="p-0" style="width: 29.333px"><img src="{{ match.team2.flag }}" height="22"></td>
-				</tr>
-                 
+				<table class="table table-striped small table-bordered border-white my-2">
+					<tr>
+						<td rowspan=2 class="fw-semibold py-0 align-middle small">{{ date.grouper|date:"d.m" }}</td>
+						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team1.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle w-100" >{{ match.team1.name|truncatechars:20 }}</td>
+						{% if match.is_penalty %}
+							<td class="py-0 small align-middle">{{ match.goal1_pen }}</td>
+						{% endif %}
+						<td class="py-0 small align-middle {% if match.goal1 > match.goal2 %} text-white {% endif %}" style="background: {% if match.goal1 > match.goal2 %} #4279A8 {% else %} #4279A860 {% endif %}">{{ match.goal1 }}</td>
+						{% if match.points1_change > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #008100C0"><span class="d-block" style="width: 47px">+{{ match.points1_change }}</span></td>
+						{% elif match.points1_change < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #DF0000D0"><span class="d-block" style="width: 47px">{{ match.points1_change }}</span></td>
+						{% endif %}
+					</tr>
+					<tr>
+						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team2.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle w-100" >{{ match.team2.name|truncatechars:18 }}</td>
+						{% if match.is_penalty %}
+							<td class="py-0 small align-middle">{{ match.goal2_pen }}</td>
+						{% endif %}
+						<td class="py-0 small align-middle {% if match.goal2 > match.goal1 %} text-white {% endif %}" style="background: {% if match.goal2 > match.goal1 %} #4279A8 {% else %} #4279A860 {% endif %}">{{ match.goal2 }}</td>
+						{% if match.points2_change > 0%}
+							<td class="text-white p-0 small align-middle" style="background: #008100C0; width: 47px"><span class="d-block" style="width: 47px">+{{ match.points2_change }}</span></td>
+						{% elif match.points2_change < 0%}
+							<td class="text-white p-0 small align-middle" style="background: #DF0000D0; width: 47px"><span class="d-block" style="width: 47px">{{ match.points2_change }}</span></td>
+						{% endif %}
+					</tr>
+				</table>
+
                 {%  endfor %}
-			</table>
             {% endfor %}
         {% endfor %}
     </div>

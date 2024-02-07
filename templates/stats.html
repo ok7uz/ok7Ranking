@@ -10,16 +10,16 @@
 {% block title %} FIFA National football teams statistics {% endblock %}
 
 {% block header %}
-    <h1 class="m-0 align-middle text-white display-6" style="font-weight: 500">
+    <h1 class="m-0 align-middle display-6" style="font-weight: 500">
         STATISTICS
     </h1>
-    <h2 class="fs-6 text-white">Statistics about ranking changes after matches</h2>
+    <h2 class="fs-6">Statistics about ranking changes after matches</h2>
 {% endblock %}
 
 {% block body %}
 <div class="col-md-7 text-center m-auto">
-<div class="p-0 pe-1 mb-1 text-white">
-	<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 BEST MOVERS</div>
+<div class="p-0 pe-1 mb-1 fw-semibold">
+	<div style="font-size: 16px;">TOP 10 BEST MOVERS</div><hr class="my-1 mb-2">
 </div>
 <table class="table bg-light table-striped small table-bordered border-white">
 	{% for team in best_teams %}
@@ -44,8 +44,8 @@
 	{% endfor %}
 </table>
 
-<div class="p-0 pe-1 mb-1 mt-3 text-white">
-	<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 BEST MOVERS BY POINTS</div>
+<div class="p-0 pe-1 mb-1 mt-3 fw-semibold">
+	<div style="font-size: 16px;">TOP 10 BEST MOVERS BY POINTS</div><hr class="my-1 mb-2">
 			</div>
             <table class="table bg-light table-striped small table-bordered border-white">
 				{% for team in best_teams_by_points %}
@@ -70,8 +70,8 @@
 				{% endfor %}
 			</table>
 
-			<div class="p-0 pe-1 mt-3 mb-1 text-white">
-				<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 WORST MOVERS</div>
+			<div class="p-0 pe-1 mt-3 mb-1 fw-semibold">
+				<div style="font-size: 16px;">TOP 10 WORST MOVERS</div><hr class="my-1 mb-2">
 						</div>
 						<table class="table bg-light table-striped small table-bordered border-white">
 							{% for team in worst_teams %}
@@ -99,8 +99,9 @@
 				</div>
 			
 
-<div class="p-0 pe-1 mt-3 mb-1 text-white">
-	<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 WORST MOVERS BY POINTS</div>
+<div class="p-0 pe-1 mt-3 mb-1 fw-semibold">
+	<div style="font-size: 16px;">TOP 10 WORST MOVERS BY POINTS</div><hr class="my-1 mb-2">'
+	
 			</div>
 			<table class="table bg-light table-striped small table-bordered border-white">
 				{% for team in worst_teams_by_points %}

@@ -10,10 +10,10 @@
 {% block title %} Upcoming FIFA National Teams' Matches (Fixtures) {% endblock %}
 
 {% block header %}
-    <h1 class="m-0 align-middle display-6 text-white" style="font-weight: 500">
+    <h1 class="m-0 align-middle display-6" style="font-weight: 500">
         FIXTURES
     </h1>
-    <h2 class="fs-6 text-white">Upcoming FIFA National Teams Matches</h2>
+    <h2 class="fs-6">Upcoming FIFA National Teams Matches</h2>
 {% endblock %}
 
 {% block body %}
@@ -28,50 +28,27 @@ NO MATCHES
         {% for date in date_list %}
             {% regroup date.list by tournament as tour_list %}
             {% for tour in tour_list %}
+			
 <div class="col-md-6 m-auto mb-3">
-                <div class="p-0 pe-1 text-white" style="margin-bottom: 12px">
-                       		<div style="padding: 2px 0; background: #4279A8; font-size: 14px; border-radius: 4px;">{{ tour.grouper }}</div>
+                <div class="p-0 text-white" style="margin-bottom: 12px">
+                       		<div style="padding: 2px 0; background: #4279A8; font-size: 14px;">{{ tour.grouper }}</div>
 			</div>
 
                 {% for match in tour.list %}
-                   <div class="row mx-0 p-0" style="margin-bottom: 12px">
-			<div class="col-auto px-2 d-flex condensed" style="border-radius: 4px; font-size: 14px; background: #EEE; justify-content: center; align-items:center">
-                       				{{ date.grouper|date:"d.m" }}	
-					</div>
-			<div class="col p-0">
-                   <a class="row my-0 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' match.team1.short_name %}">
-	<div class="col-auto py-0 ps-1 pe-0" style="font-size: 13px; justify-content: center; align-items:center">
-		<img class="m-0" src="{{ match.team1.flag.url }}" width="28" height="21.5" alt="{{ match.team1.name }}'s flag" style="border-radius: 10%; border: 1px solid black;" loading="lazy">
-	</div>
-	<div class="col py-0 px-0 ps-1 align-middle text-start">
-                <div class="d-flex px-2" style="background: #F0F0F0; font-size: 14px; height: 21px; align-items:center; border-radius: 4px;">
-			{{ match.team1.name }}
-		</div>
-	</div>
-	<div class="col-auto py-0 ps-1 pe-0">
-		<div class="d-flex condensed border border-white" style="border-radius: 4px; background: #4279A860; width: 40px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
-			{% win_p match.team1.points match.team2.points %}%
-		</div>
-	</div>
-</a>
+				<table class="table table-striped small table-bordered border-white my-2">
+					<tr>
+						<td rowspan=2 class="fw-semibold py-0 align-middle small">{{ date.grouper|date:"d.m" }}</td>
+						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team1.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle w-100" >{{ match.team1.name|truncatechars:20 }}</td>
+						<td class="py-0 small align-middle" style="background: #4279A860">{% win_p match.team1.points match.team2.points %}%</td>
+					</tr>
+					<tr>
+						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team2.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle w-100" >{{ match.team2.name|truncatechars:18 }}</td>
+						<td class="py-0 small align-middle" style="background: #4279A860">{% win_p match.team2.points match.team1.points %}%</td>
+					</tr>
+				</table>
 
-<a class="row mb-0 mx-1 text-decoration-none" style="color: inherit; margin-top: 3px" href="{% url 'country' match.team2.short_name %}">
-	<div class="col-auto py-0 ps-1 pe-0" style="font-size: 13px; justify-content: center; align-items:center">
-		<img class="m-0" src="{{ match.team2.flag.url }}" width="28" height="21.5" alt="{{ match.team2.name }}'s flag" style="border-radius: 10%; border: 1px solid black;" loading="lazy">
-	</div>
-	<div class="col py-0 px-0 ps-1 align-middle text-start">
-                <div class="d-flex px-2" style="border-radius: 4px; background: #F0F0F0; font-size: 14px; height: 21px; align-items:center">
-			{{ match.team2.name }}
-		</div>
-	</div>
-	<div class="col-auto py-0 ps-1 pe-0">
-		<div class="d-flex condensed border border-white" style="border-radius: 4px; background: #4279A860; width: 40px; font-size: 13px; height: 21px; justify-content: center; align-items:center">
-			{% win_p match.team2.points match.team1.points %}%
-		</div>
-	</div>
-</a>
-</div>
-</div>
                 {%  endfor %}
 </div>
             {% endfor %}

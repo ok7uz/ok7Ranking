@@ -68,7 +68,7 @@ def matches_view(request):
 
 
 
-@cache_page(60 * 5)
+@cache_page(1)
 def fixtures_view(request):
     fixtures = Match.objects.filter(goal1__isnull=True).order_by('date', 'tournament')
 
