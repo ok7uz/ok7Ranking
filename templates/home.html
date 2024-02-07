@@ -27,20 +27,20 @@
 			{% for team in teams %}
 				<tr>
 					{% if team.rank_change < 0%}
-						<td class="text-white bg-success py-0 small align-middle px-1">{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</td>
+						<td class="text-white py-0 small align-middle" style="background: #008100C0">{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</td>
 					{% elif team.rank_change > 0%}
-						<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.rank_change }}</td>
+						<td class="text-white py-0 small align-middle" style="background: #DF0000D0">{{ team.rank_change }}</td>
 					{% else %}
 						<td class="py-0 small px-1 align-middle">-</td>
 					{% endif %}
 					<td class="fw-semibold py-0 align-middle small">{{ team.rank }}</td>
 					<td class="p-0"><img style="margin: 1px 0; border: 1px solid black" src="{{ team.flag }}" height="22"></td>
-					<td class="text-start py-0 align-middle w-100" style="font-size: 0.91em">{{ team.name|truncatechars:18 }}</td>
-					<td class="bg-warning py-0 small align-middle">{{ team.points }}</td>
+					<td class="text-start py-0 align-middle w-100 fw-semibold" style="font-size: 0.92em">{{ team.name|truncatechars:18 }}</td>
+					<td class="text-white py-0 small align-middle" style="background: #4279A8">{{ team.points }}</td>
 					{% if team.points_change > 0%}
-						<td class="text-white bg-success py-0 small align-middle px-1">+{{ team.points_change }}</td>
+						<td class="text-white py-0 small align-middle px-1" style="background: #008100C0">+{{ team.points_change }}</td>
 					{% elif team.points_change < 0%}
-						<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.points_change }}</td>
+						<td class="text-white py-0 small align-middle px-1" style="background: #DF0000D0">{{ team.points_change }}</td>
 					{% endif %}
 				</tr>
 			{% endfor %}
