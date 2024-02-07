@@ -35,8 +35,8 @@
 						{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
 					</div>
 				{% else %}
-					<div class="d-flex text-white  border-dark" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center">
-						.
+					<div class="d-flex bg-light text-dark" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
+						-
 					</div>
 				{% endif %}
 			</div>
@@ -52,7 +52,7 @@
 				{% endif %}
 			</div>
 			<div class="col-auto py-0 ps-0 pe-0" style="font-size: 13px; justify-content: center; align-items:center;">
-				<img class="m-0" src="{{ team.flag }}" width="30" height="23" alt="{{ team.name }}'s flag" loading="lazy" style="border: 1px solid black; border-radius: 10%;">
+				<img class="m-0" src="{{ team.flag }}" width="30" height="23" alt="{{ team.name }}'s flag" loading="lazy" style="border: 1px solid black; border-radius: 8%;">
 			</div>
 			<div class="col py-0 px-0 ps-1 align-middle text-start">
 						<div class="d-flex px-2 d-none d-lg-block" style="font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
@@ -69,16 +69,16 @@
 			</div>
 			<div class="col-auto condensed p-0 text-start text-white">
 				{% if team.points_change < 0 %}
-					<div class="d-flex border border-white" style="background: #C43131; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
+					<div class="d-flex border border-white bg-danger bg-opacity-75" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
 						{{ team.points_change|floatformat:2 }}
 					</div>
 				{% elif team.points_change > 0 %}
-					<div class="d-flex border border-white" style="background: #458600; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
+					<div class="d-flex border bg-success bg-opacity-75 border-white" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
 						+{{ team.points_change|floatformat:2 }}
 					</div>
 				{% else %}
-					<div class="d-flex text-white" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-						.
+					<div class="d-flex bg-light text-dark" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
+						-
 					</div>
 				{% endif %}
 			</div>
