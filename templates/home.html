@@ -14,32 +14,88 @@
 {% endblock %}
 
 {% block body %}
-	<div class="col-md-6 m-auto">
-		<table class="table table-striped table-hover small" style="font-weight: 500">
-			{% for team in teams %}
-			<tr>
-				<td>
-					{% if team.rank_change > 0 %}
-						<span class="text-danger text-opacity-75">-{{ team.rank_change }}</span>
-					{% elif team.rank_change < 0 %}
-						<span class="text-success text-opacity-75">+{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</span>
-					{% endif %}
-				</td>
-				<td class="fw-semibold">{{ team.rank }}</td>
-				<td><img src="{{ team.flag }}" style="border: 1px solid black; border-radius: 3px;" height="23" alt="{{ team.name }}'s flag"><td>
-				<td class="text-start w-100">{{ team.name }}</td>
-				<td>{{ team.points }}</td>
-				<td>
-					{% if team.points_change < 0 %}
-						<span class="text-danger text-opacity-75">{{ team.points_change }}</span>
-					{% elif team.points_change > 0 %}
-						<span class="text-success text-opacity-75">+{{ team.points_change }}</span>
-					{% endif %}
-				</td>
-			</tr>
-			{% endfor %}
-		</table>
-
+    <div class="col-lg-7 text-center m-auto">
+        <div class="mt-4 text-dark py-2" style="color: #4279A8">
+            <a href="/" class="px-1 text-decoration-none {% if not request.GET.conf %} fw-bolder {% endif %}" style="color: #4279A8">ALL</a>
+            {% for conf in confs %}
+                <a href="/?conf={{ conf }}" class="px-1 text-decoration-none {% if conf == request.GET.conf %} fw-bolder {% endif %}" style="color: #4279A8">
+                    {{ conf|upper }}
+                </a>
+            {% endfor %}
+        </div>
+		{% for team in teams %}
+		<a class="row my-2 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' team.short_name %}">
+			<div class="col-auto p-0 ps-0 pe-0 text-white condensed">
+				{% if team.rank_change > 0 %}
+					<div class="d-flex" style="background: #C43131; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
+						{{ team.rank_change }}
+					</div>
+				{% elif team.rank_change < 0 %}
+					<div class="d-flex" style="background: #458600; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
+						{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
+					</div>
+				{% else %}
+					<div class="d-flex text-white  border-dark" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center">
+						.
+					</div>
+				{% endif %}
+			</div>
+			<div class="col-auto p-0 condensed "> 
+				{% if team.rank_change == 0 %}
+				<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-left: 1px solid #BBB; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center; border-top-left-radius: 10%; border-bottom-left-radius: 10%;">
+					{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
+				</div>
+				{% else %}
+				<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center;">
+					{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
+				</div>
+				{% endif %}
+			</div>
+			<div class="col-auto py-0 ps-0 pe-0" style="font-size: 13px; justify-content: center; align-items:center;">
+				<img class="m-0" src="{{ team.flag }}" width="30" height="23" alt="{{ team.name }}'s flag" loading="lazy" style="border: 1px solid black; border-radius: 10%;">
+			</div>
+			<div class="col py-0 px-0 ps-1 align-middle text-start">
+						<div class="d-flex px-2 d-none d-lg-block" style="font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
+					{{ team.name }}
+				</div>
+				<div class="d-flex px-1 condensed d-lg-none" style="line-height: 1; font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
+					{{ team.name }}
+				</div>
+			</div>
+			<div class="col-auto py-0 ps-1 pe-0 ">
+				<div class=" condensed d-flex text-white border border-white" style="background: #4279A8; width: 55px; font-size: 12px; height: 23px; justify-content: center; align-items:center; {% if team.points_change == 0 %} border-radius: 4px {% else %} border-top-left-radius: 4px; border-bottom-left-radius: 4px; {% endif %}">
+					{{ team.points }}
+				</div>
+			</div>
+			<div class="col-auto condensed p-0 text-start text-white">
+				{% if team.points_change < 0 %}
+					<div class="d-flex border border-white" style="background: #C43131; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
+						{{ team.points_change|floatformat:2 }}
+					</div>
+				{% elif team.points_change > 0 %}
+					<div class="d-flex border border-white" style="background: #458600; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
+						+{{ team.points_change|floatformat:2 }}
+					</div>
+				{% else %}
+					<div class="d-flex text-white" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
+						.
+					</div>
+				{% endif %}
+			</div>
+		</a>
+		{% endfor %}
+        <p class="lead fw-normal pt-3">
+            {% if paginator.num_pages > 1 %}
+                {% for i in paginator.page_range %}
+                    {% if i > 1 %}
+                        <a class="px-1 btn text-decoration-none py-1 text-center" href="?page={{ i }}{% if request.GET.conf %}&conf={{ request.GET.conf }}{% endif %}" style="width: 40px; border-radius: 2px; {% if request.GET.page == i|slugify or 'page' not in request.GET and i == 1 %} background: #4279A8; color: white; {% else %} background: #DDD; color: #4279A8; {% endif %}">{{ i }}</a>
+                    {% else %}
+                        <a class="px-1 btn text-decoration-none py-1 text-center" href="/{% if request.GET.conf %}?conf={{ request.GET.conf }}{% endif %}" style="width: 40px; border-radius: 2px; {% if request.GET.page == i|slugify or 'page' not in request.GET and i == 1 %} background: #4279A8; color: white; {% else %} background: #DDD; color: #4279A8; {% endif %}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </p>
+    </div>
 	<!--<div class="row fixed-bottom p-0 lh-1">
 		<div class="col m-0 p-2 d-flex flex-column shadow-lg bg-primary bg-opacity-25" style="backdrop-filter: blur(5px);">
 			<svg height=20 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M400 0H176c-26.5 0-48.1 21.8-47.1 48.2c.2 5.3 .4 10.6 .7 15.8H24C10.7 64 0 74.7 0 88c0 92.6 33.5 157 78.5 200.7c44.3 43.1 98.3 64.8 138.1 75.8c23.4 6.5 39.4 26 39.4 45.6c0 20.9-17 37.9-37.9 37.9H192c-17.7 0-32 14.3-32 32s14.3 32 32 32H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H357.9C337 448 320 431 320 410.1c0-19.6 15.9-39.2 39.4-45.6c39.9-11 93.9-32.7 138.2-75.8C542.5 245 576 180.6 576 88c0-13.3-10.7-24-24-24H446.4c.3-5.2 .5-10.4 .7-15.8C448.1 21.8 426.5 0 400 0zM48.9 112h84.4c9.1 90.1 29.2 150.3 51.9 190.6c-24.9-11-50.8-26.5-73.2-48.3c-32-31.1-58-76-63-142.3zM464.1 254.3c-22.4 21.8-48.3 37.3-73.2 48.3c22.7-40.3 42.8-100.5 51.9-190.6h84.4c-5.1 66.3-31.1 111.2-63 142.3z"/></svg>
