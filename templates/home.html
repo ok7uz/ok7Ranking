@@ -15,11 +15,12 @@
 
 {% block body %}
 	<div class="col-md-6 m-auto">
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover small">
 			{% for team in teams %}
 			<tr>
 				<td class="fw-semibold">{{ team.rank }}</td>
-				<td class="text-start">{{ team.name }}</td>
+				<td><img src="{{ team.flag }}" height="22" alt="{{ team.name }}'s flag"><td>
+				<td class="text-start w-100">{{ team.name }}</td>
 				<td>{{ team.points }}</td>
 			</tr>
 			{% endfor %}
