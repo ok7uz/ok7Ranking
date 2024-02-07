@@ -21,225 +21,109 @@
 <div class="p-0 pe-1 mb-1 text-white">
 	<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 BEST MOVERS</div>
 </div>
-           <table class="table text-light table-bordered" style="line-height: 1; border: 2px solid  rgba(38, 46, 51)">
+<table class="table bg-light table-striped small table-bordered border-white">
 	{% for team in best_teams %}
-		<tr style="height: 45px">
-			<td class="align-middle px-3 py-1" style="line-height: 1; font-size: 0.8em"> {{ team.rank }}
-			{% if team.rank_change > 0 %}		
-				<span class="fw-normal small" style="color: orangered">-{{ team.rank_change }}</span>
-			{% elif team.rank_change < 0 %}		
-				<span class="fw-normal small" style="color: limegreen">+{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</span>
+		<tr>
+			{% if team.rank_change < 0%}
+				<td class="text-white bg-success py-0 small align-middle px-1">{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</td>
+			{% elif team.rank_change > 0%}
+				<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.rank_change }}</td>
+			{% else %}
+				<td class="py-0 small px-1 align-middle">-</td>
 			{% endif %}
-</td>	
-			<td class="align-middle px-1"><img src="{{ team.flag.url }}" height=22></td>	
-			<td class="w-100 text-start py-1 align-middle text-nowrap small">{{ team.name }}</td>
-			<td class="py-1 align-middle" style="font-size: 0.8em">
-				{{ team.points }}
-				{% if team.points_change < 0 %}		
-				<span class="fw-normal small" style="color: orangered">{{ team.points_change }}</span>
-			{% elif team.points_change > 0 %}		
-				<span class="fw-normal small" style="color: limegreen">+{{ team.points_change }}</span>
+			<td class="fw-semibold py-0 align-middle small">{{ team.rank }}</td>
+			<td class="p-0"><img style="margin: 1px 0; border: 1px solid black" src="{{ team.flag }}" height="22"></td>
+			<td class="text-start py-0 align-middle small w-100">{{ team.name|truncatechars:18 }}</td>
+			<td class="bg-warning py-0 small align-middle">{{ team.points }}</td>
+			{% if team.points_change > 0%}
+				<td class="text-white bg-success py-0 small align-middle px-1">+{{ team.points_change }}</td>
+			{% elif team.points_change < 0%}
+				<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.points_change }}</td>
 			{% endif %}
-			</td>
 		</tr>
 	{% endfor %}
-	</table>
+</table>
 
 <div class="p-0 pe-1 mb-1 mt-3 text-white">
 	<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 BEST MOVERS BY POINTS</div>
 			</div>
-            {% for team in best_teams_by_points %}
-<a class="row my-2 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' team.short_name %}">
-	<div class="col-auto p-0 ps-0 pe-0 text-white condensed">
-		{% if team.rank_change > 0 %}
-			<div class="d-flex" style="background: #C43131; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
-				{{ team.rank_change }}
-			</div>
-		{% elif team.rank_change < 0 %}
-			<div class="d-flex" style="background: #458600; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
-				{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
-			</div>
-		{% else %}
-			<div class="d-flex text-white  border-dark" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center">
-				.
-			</div>
-		{% endif %}
-	</div>
-	<div class="col-auto p-0 condensed "> 
-		{% if team.rank_change == 0 %}
-		<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-left: 1px solid #BBB; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center; border-top-left-radius: 10%; border-bottom-left-radius: 10%;">
-			{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
-		</div>
-		{% else %}
-		<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center;">
-			{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
-		</div>
-		{% endif %}
-	</div>
-	<div class="col-auto py-0 ps-0 pe-0" style="font-size: 13px; justify-content: center; align-items:center;">
-		<img class="m-0" src="{{ team.flag.url }}" width="30" height="23" alt="{{ team.name }}'s flag" loading="lazy" style="border: 1px solid black; border-radius: 10%;">
-	</div>
-	<div class="col py-0 px-0 ps-1 align-middle text-start">
-                <div class="d-flex px-2 d-none d-lg-block" style="font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
-			{{ team.name }}
-		</div>
-		<div class="d-flex px-1 condensed d-lg-none" style="line-height: 1; font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
-			{{ team.name }}
-		</div>
-	</div>
-	<div class="col-auto py-0 ps-1 pe-0 ">
-		<div class=" condensed d-flex text-white border border-white" style="background: #4279A8; width: 55px; font-size: 12px; height: 23px; justify-content: center; align-items:center; {% if team.points_change == 0 %} border-radius: 4px {% else %} border-top-left-radius: 4px; border-bottom-left-radius: 4px; {% endif %}">
-			{{ team.points }}
-		</div>
-	</div>
-	<div class="col-auto condensed p-0 text-start text-white">
-		{% if team.points_change < 0 %}
-			<div class="d-flex border border-white" style="background: #C43131; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				{{ team.points_change|floatformat:2 }}
-			</div>
-		{% elif team.points_change > 0 %}
-			<div class="d-flex border border-white" style="background: #458600; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				+{{ team.points_change|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex text-white" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				.
-			</div>
-		{% endif %}
-	</div>
-</a>
-{% endfor %}
+            <table class="table bg-light table-striped small table-bordered border-white">
+				{% for team in best_teams_by_points %}
+					<tr>
+						{% if team.rank_change < 0%}
+							<td class="text-white bg-success py-0 small align-middle px-1">{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</td>
+						{% elif team.rank_change > 0%}
+							<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.rank_change }}</td>
+						{% else %}
+							<td class="py-0 small px-1 align-middle">-</td>
+						{% endif %}
+						<td class="fw-semibold py-0 align-middle small">{{ team.rank }}</td>
+						<td class="p-0"><img style="margin: 1px 0; border: 1px solid black" src="{{ team.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle small w-100">{{ team.name|truncatechars:18 }}</td>
+						<td class="bg-warning py-0 small align-middle">{{ team.points }}</td>
+						{% if team.points_change > 0%}
+							<td class="text-white bg-success py-0 small align-middle px-1">+{{ team.points_change }}</td>
+						{% elif team.points_change < 0%}
+							<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.points_change }}</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</table>
 
-<div class="p-0 pe-1 mb-1 mt-3 text-white">
-	<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 WORST MOVERS</div>
-			</div>
-            {% for team in worst_teams %}
-<a class="row my-2 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' team.short_name %}">
-	<div class="col-auto p-0 ps-0 pe-0 text-white condensed">
-		{% if team.rank_change > 0 %}
-			<div class="d-flex" style="background: #C43131; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
-				{{ team.rank_change }}
-			</div>
-		{% elif team.rank_change < 0 %}
-			<div class="d-flex" style="background: #458600; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
-				{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
-			</div>
-		{% else %}
-			<div class="d-flex text-white  border-dark" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center">
-				.
-			</div>
-		{% endif %}
-	</div>
-	<div class="col-auto p-0 condensed "> 
-		{% if team.rank_change == 0 %}
-		<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-left: 1px solid #BBB; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center; border-top-left-radius: 10%; border-bottom-left-radius: 10%;">
-			{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
-		</div>
-		{% else %}
-		<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center;">
-			{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
-		</div>
-		{% endif %}
-	</div>
-	<div class="col-auto py-0 ps-0 pe-0" style="font-size: 13px; justify-content: center; align-items:center;">
-		<img class="m-0" src="{{ team.flag.url }}" width="30" height="23" alt="{{ team.name }}'s flag" loading="lazy" style="border: 1px solid black; border-radius: 10%;">
-	</div>
-	<div class="col py-0 px-0 ps-1 align-middle text-start">
-                <div class="d-flex px-2 d-none d-lg-block" style="font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
-			{{ team.name }}
-		</div>
-		<div class="d-flex px-1 condensed d-lg-none" style="line-height: 1; font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
-			{{ team.name }}
-		</div>
-	</div>
-	<div class="col-auto py-0 ps-1 pe-0 ">
-		<div class=" condensed d-flex text-white border border-white" style="background: #4279A8; width: 55px; font-size: 12px; height: 23px; justify-content: center; align-items:center; {% if team.points_change == 0 %} border-radius: 4px {% else %} border-top-left-radius: 4px; border-bottom-left-radius: 4px; {% endif %}">
-			{{ team.points }}
-		</div>
-	</div>
-	<div class="col-auto condensed p-0 text-start text-white">
-		{% if team.points_change < 0 %}
-			<div class="d-flex border border-white" style="background: #C43131; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				{{ team.points_change|floatformat:2 }}
-			</div>
-		{% elif team.points_change > 0 %}
-			<div class="d-flex border border-white" style="background: #458600; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				+{{ team.points_change|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex text-white" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				.
-			</div>
-		{% endif %}
-	</div>
-</a>
-{% endfor %}
-
+			<div class="p-0 pe-1 mt-3 mb-1 text-white">
+				<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 WORST MOVERS</div>
+						</div>
+						<table class="table bg-light table-striped small table-bordered border-white">
+							{% for team in worst_teams %}
+								<tr>
+									{% if team.rank_change < 0%}
+										<td class="text-white bg-success py-0 small align-middle px-1">{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</td>
+									{% elif team.rank_change > 0%}
+										<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.rank_change }}</td>
+									{% else %}
+										<td class="py-0 small px-1 align-middle">-</td>
+									{% endif %}
+									<td class="fw-semibold py-0 align-middle small">{{ team.rank }}</td>
+									<td class="p-0"><img style="margin: 1px 0; border: 1px solid black" src="{{ team.flag }}" height="22"></td>
+									<td class="text-start py-0 align-middle small w-100">{{ team.name|truncatechars:18 }}</td>
+									<td class="bg-warning py-0 small align-middle">{{ team.points }}</td>
+									{% if team.points_change > 0%}
+										<td class="text-white bg-success py-0 small align-middle px-1">+{{ team.points_change }}</td>
+									{% elif team.points_change < 0%}
+										<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.points_change }}</td>
+									{% endif %}
+								</tr>
+							{% endfor %}
+						</table>
+			
+				</div>
+			
 
 <div class="p-0 pe-1 mt-3 mb-1 text-white">
 	<div style="padding: 2px 0; background: #4279A8; font-size: 16px; border-radius: 4px;">TOP 10 WORST MOVERS BY POINTS</div>
 			</div>
-            {% for team in worst_teams_by_points %}
-<a class="row my-2 mx-1 text-decoration-none" style="color: inherit" href="{% url 'country' team.short_name %}">
-	<div class="col-auto p-0 ps-0 pe-0 text-white condensed">
-		{% if team.rank_change > 0 %}
-			<div class="d-flex" style="background: #C43131; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
-				{{ team.rank_change }}
-			</div>
-		{% elif team.rank_change < 0 %}
-			<div class="d-flex" style="background: #458600; width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
-				{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
-			</div>
-		{% else %}
-			<div class="d-flex text-white  border-dark" style="width: 23px; font-size: 12px; height: 23px; justify-content: center; align-items:center">
-				.
-			</div>
-		{% endif %}
-	</div>
-	<div class="col-auto p-0 condensed "> 
-		{% if team.rank_change == 0 %}
-		<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-left: 1px solid #BBB; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center; border-top-left-radius: 10%; border-bottom-left-radius: 10%;">
-			{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
-		</div>
-		{% else %}
-		<div class="d-flex fw-bold" style="background: white; width: 30px; font-size: 13px; height: 23px; justify-content: center; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB; align-items:center;">
-			{% if not request.GET.conf %}{{ team.rank }}{% else %}{{ team.conf_rank }}{% endif %}
-		</div>
-		{% endif %}
-	</div>
-	<div class="col-auto py-0 ps-0 pe-0" style="font-size: 13px; justify-content: center; align-items:center;">
-		<img class="m-0" src="{{ team.flag.url }}" width="30" height="23" alt="{{ team.name }}'s flag" loading="lazy" style="border: 1px solid black; border-radius: 10%;">
-	</div>
-	<div class="col py-0 px-0 ps-1 align-middle text-start">
-                <div class="d-flex px-2 d-none d-lg-block" style="font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
-			{{ team.name }}
-		</div>
-		<div class="d-flex px-1 condensed d-lg-none" style="line-height: 1; font-size: 14px; height: 23px; align-items:center; background: #F0F0F0; border-radius: 4px">
-			{{ team.name }}
-		</div>
-	</div>
-	<div class="col-auto py-0 ps-1 pe-0 ">
-		<div class=" condensed d-flex text-white border border-white" style="background: #4279A8; width: 55px; font-size: 12px; height: 23px; justify-content: center; align-items:center; {% if team.points_change == 0 %} border-radius: 4px {% else %} border-top-left-radius: 4px; border-bottom-left-radius: 4px; {% endif %}">
-			{{ team.points }}
-		</div>
-	</div>
-	<div class="col-auto condensed p-0 text-start text-white">
-		{% if team.points_change < 0 %}
-			<div class="d-flex border border-white" style="background: #C43131; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				{{ team.points_change|floatformat:2 }}
-			</div>
-		{% elif team.points_change > 0 %}
-			<div class="d-flex border border-white" style="background: #458600; width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				+{{ team.points_change|floatformat:2 }}
-			</div>
-		{% else %}
-			<div class="d-flex text-white" style="width: 45px; font-size: 12px; height: 23px; justify-content: center; align-items:center; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-left: 2px solid white;">
-				.
-			</div>
-		{% endif %}
-	</div>
-</a>
-{% endfor %}
+			<table class="table bg-light table-striped small table-bordered border-white">
+				{% for team in worst_teams_by_points %}
+					<tr>
+						{% if team.rank_change < 0%}
+							<td class="text-white bg-success py-0 small align-middle px-1">{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</td>
+						{% elif team.rank_change > 0%}
+							<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.rank_change }}</td>
+						{% else %}
+							<td class="py-0 small px-1 align-middle">-</td>
+						{% endif %}
+						<td class="fw-semibold py-0 align-middle small">{{ team.rank }}</td>
+						<td class="p-0"><img style="margin: 1px 0; border: 1px solid black" src="{{ team.flag }}" height="22"></td>
+						<td class="text-start py-0 align-middle small w-100">{{ team.name|truncatechars:18 }}</td>
+						<td class="bg-warning py-0 small align-middle">{{ team.points }}</td>
+						{% if team.points_change > 0%}
+							<td class="text-white bg-success py-0 small align-middle px-1">+{{ team.points_change }}</td>
+						{% elif team.points_change < 0%}
+							<td class="text-white bg-danger py-0 small align-middle px-1">{{ team.points_change }}</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</table>
 
     </div>
 {% endblock %}

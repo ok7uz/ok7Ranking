@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "Sofascore Sans";
+  font-weight: 400;
+  src: url("/static/fonts/SofascoreSans-Regular.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Sofascore Sans";
+  font-weight: 600;
+  src: url("/static/fonts/SofascoreSans-Medium.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Sofascore Sans";
+  font-weight: 700;
+  src: url("/static/fonts/SofascoreSans-Bold.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Sofascore Sans Condensed";
+  font-weight: 400;
+  src: url("/static/fonts/SofascoreSans-RegularCondensed.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Sofascore Sans Condensed";
+  font-weight: 600;
+  src: url("/static/fonts/SofascoreSans-MediumCondensed.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Sofascore Sans Condensed";
+  font-weight: 700;
+  src: url("/static/fonts/SofascoreSans-BoldCondensed.woff2") format('woff2');
+}
+
+body {
+  font-family: "Sofascore Sans" !important;
+}
+
+.condensed {
+  font-family: "Sofascore Sans Condensed"t;
+}
