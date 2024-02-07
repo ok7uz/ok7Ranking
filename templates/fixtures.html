@@ -38,12 +38,12 @@ NO MATCHES
 				<table class="table table-striped small table-bordered border-white my-2">
 					<tr>
 						<td rowspan=2 class="fw-semibold py-0 align-middle small">{{ date.grouper|date:"d.m" }}</td>
-						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team1.flag }}" height="22"></td>
+						<td class="p-0"><img class="border border-dark" style="margin: 0;" src="{{ match.team1.flag }}" height="22"></td>
 						<td class="text-start py-0 align-middle w-100" >{{ match.team1.name|truncatechars:20 }}</td>
 						<td class="py-0 small align-middle" style="background: #4279A860">{% win_p match.team1.points match.team2.points %}%</td>
 					</tr>
 					<tr>
-						<td class="p-0"><img class="border border-dark" style="margin: 0 0;" src="{{ match.team2.flag }}" height="22"></td>
+						<td class="p-0"><img class="border border-dark" style="margin: 0;" src="{{ match.team2.flag }}" height="22"></td>
 						<td class="text-start py-0 align-middle w-100" >{{ match.team2.name|truncatechars:18 }}</td>
 						<td class="py-0 small align-middle" style="background: #4279A860">{% win_p match.team2.points match.team1.points %}%</td>
 					</tr>
