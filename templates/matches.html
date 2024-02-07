@@ -55,9 +55,9 @@
 						{% endif %}
 						<td class="py-0 small align-middle {% if match.goal1 > match.goal2 %} text-white {% endif %}" style="background: {% if match.goal1 > match.goal2 %} #4279A8 {% else %} #4279A860 {% endif %}">{{ match.goal1 }}</td>
 						{% if match.points1_change > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #008100C0"><span class="d-block" style="width: 47px">+{{ match.points1_change }}</span></td>
+							<td class="text-white p-0 small align-middle" style="background: #418500D0"><span class="d-block" style="width: 47px">+{{ match.points1_change }}</span></td>
 						{% elif match.points1_change < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #DF0000D0"><span class="d-block" style="width: 47px">{{ match.points1_change }}</span></td>
+							<td class="text-white p-0 small align-middle" style="background: #D04343"><span class="d-block" style="width: 47px">{{ match.points1_change }}</span></td>
 						{% endif %}
 					</tr>
 					<tr>
@@ -68,9 +68,9 @@
 						{% endif %}
 						<td class="py-0 small align-middle {% if match.goal2 > match.goal1 %} text-white {% endif %}" style="background: {% if match.goal2 > match.goal1 %} #4279A8 {% else %} #4279A860 {% endif %}">{{ match.goal2 }}</td>
 						{% if match.points2_change > 0%}
-							<td class="text-white p-0 small align-middle" style="background: #008100C0; width: 47px"><span class="d-block" style="width: 47px">+{{ match.points2_change }}</span></td>
+							<td class="text-white p-0 small align-middle" style="background: #418500D0; width: 47px"><span class="d-block" style="width: 47px">+{{ match.points2_change }}</span></td>
 						{% elif match.points2_change < 0%}
-							<td class="text-white p-0 small align-middle" style="background: #DF0000D0; width: 47px"><span class="d-block" style="width: 47px">{{ match.points2_change }}</span></td>
+							<td class="text-white p-0 small align-middle" style="background: #D04343; width: 47px"><span class="d-block" style="width: 47px">{{ match.points2_change }}</span></td>
 						{% endif %}
 					</tr>
 				</table>

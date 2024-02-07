@@ -27,7 +27,7 @@ def get_teams(conf=None):
 
     return teams
 
-@cache_page(300)
+@cache_page(1)
 def home_view(request):
     conf = request.GET.get('conf')
     page_number = request.GET.get("page")
