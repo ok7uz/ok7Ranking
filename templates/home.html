@@ -24,8 +24,8 @@
             {% endfor %}
         </div>
 			{% for team in teams %}
-				<div class="bg-white border rounded row my-1 p-2 align-items-center mx-3 lh-1 px-lg-3">
-					<div class="col-auto fw-bold p-0 align-middle small me-1" style="width: 25px">{{ team.rank }}</div>
+				<div class="bg-white border rounded row my-1 p-2 align-items-center mx-3 lh-1 px-3">
+					<div class="col-auto fw-bold p-0 align-middle small me-1 text-start" style="width: 25px">{{ team.rank }}</div>
 					{% if team.rank_change < 0%}
 						<div class="col-auto p-0">
 							<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#418500D0" d="M13.4082 5.40158L12.0082 4.00153L12.0011 4.00863L11.9942 4.00172L10.5942 5.40173L10.6011 5.40864L5.70109 10.3086C5.31448 10.6952 5.31448 11.322 5.70109 11.7087C6.08771 12.0953 6.71454 12.0953 7.10115 11.7087L11.0014 7.80845L11.0014 18.9988C11.0014 19.5511 11.4491 19.9988 12.0014 19.9988C12.5536 19.9988 13.0014 19.5511 13.0014 18.9988L13.0014 7.80894L16.9013 11.7089C17.2879 12.0955 17.9148 12.0955 18.3014 11.7089C18.688 11.3223 18.688 10.6955 18.3014 10.3089L13.4011 5.40868L13.4082 5.40158Z" fill="currentColor"></path></svg>
@@ -48,9 +48,9 @@
 							
 						</div>
 					{% endif %}
-					<div class="col-auto p-0 ps-3 ps-lg-3"><img class="border" alt="{{ team.name }}'s flag" style="margin: 2px 0; height: calc(24px + 0vw)" src="{{ team.flag }}"></div>
-					<div class="d-none d-md-block col text-start py-0 align-middle" >{{ team.name }}</div>
-					<div class="d-md-none col text-start py-0 align-middle fw-bold" >{{ team.short_name|upper }}</div>
+					<div class="col-auto p-0 ps-3 ps-lg-3"><img class="border" alt="{{ team.name }}'s flag" style="margin: 2px 0; height: calc(23px + 0vw)" src="{{ team.flag }}"></div>
+					<div class="d-none d-md-block col text-start py-0 align-middle small fw-semibold" >{{ team.name }}</div>
+					<div class="d-md-none col text-start py-0 align-middle fw-bold small" >{{ team.short_name|upper }}</div>
 					<div class="col-auto p-0 small align-middle fw-bold me-3 me-lg-3">{{ team.points }}</div>
 					{% if team.points_change > 0%}
 						<div class="col-auto p-0 small align-middle text-end fw-bold" style="color: #418500D0; width: 45px">+{{ team.points_change }}</div>
