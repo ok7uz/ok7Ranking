@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="col-md-6 text-center m-auto ">
+    <div class="col-md-8 text-center m-auto">
         <div class="mt-4 text-dark py-2 small" style="color: #4279A8">
             <a href="/" class="px-1 text-decoration-none {% if not request.GET.conf %} fw-bolder {% endif %}" style="color: #4279A8">ALL</a>
             {% for conf in confs %}
@@ -23,30 +23,44 @@
                 </a>
             {% endfor %}
         </div>
-		<table class="table bg-light table-striped small table-bordered border-white">
 			{% for team in teams %}
-				<tr class="bg-secondary-subtle">
+				<div class="bg-white border rounded row my-1 p-2 align-items-center mx-3 lh-1 px-lg-3">
+					<div class="col-auto fw-bold p-0 align-middle small me-1" style="width: 25px">{{ team.rank }}</div>
 					{% if team.rank_change < 0%}
-						<td class="text-white py-0 px-1 small align-middle" style="background: #418500D0; border-top: 4px solid white; border-bottom: 4px solid white;">{{ team.rank_change|stringformat:"+d"|slice:"1:" }}</td>
+						<div class="col-auto p-0">
+							<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#418500D0" d="M13.4082 5.40158L12.0082 4.00153L12.0011 4.00863L11.9942 4.00172L10.5942 5.40173L10.6011 5.40864L5.70109 10.3086C5.31448 10.6952 5.31448 11.322 5.70109 11.7087C6.08771 12.0953 6.71454 12.0953 7.10115 11.7087L11.0014 7.80845L11.0014 18.9988C11.0014 19.5511 11.4491 19.9988 12.0014 19.9988C12.5536 19.9988 13.0014 19.5511 13.0014 18.9988L13.0014 7.80894L16.9013 11.7089C17.2879 12.0955 17.9148 12.0955 18.3014 11.7089C18.688 11.3223 18.688 10.6955 18.3014 10.3089L13.4011 5.40868L13.4082 5.40158Z" fill="currentColor"></path></svg>
+						</div>
+						<div class="col-auto p-0 text-start small align-middle fw-semibold d-none d-md-block fw-bold" style="width: 16px; color: #418500D0">
+							{{ team.rank_change|stringformat:"+d"|slice:"1:" }}
+						</div>
 					{% elif team.rank_change > 0%}
-						<td class="text-white py-0 small px-1 align-middle" style="background: #D04343; border-top: 4px solid white; border-bottom: 4px solid white;">{{ team.rank_change }}</td>
+						<div class="col-auto p-0">
+							<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#D04343" d="M13.4053 18.5987L12.0052 19.9988L11.9981 19.9917L11.9912 19.9986L10.5912 18.5986L10.5981 18.5917L5.69816 13.6917C5.31155 13.3051 5.31155 12.6783 5.69816 12.2916C6.08478 11.905 6.71161 11.905 7.09822 12.2916L10.9984 16.1918L10.9984 5.00153C10.9984 4.44924 11.4461 4.00153 11.9984 4.00153C12.5507 4.00153 12.9984 4.44924 12.9984 5.00153L12.9984 16.1914L16.8984 12.2914C17.285 11.9048 17.9118 11.9048 18.2984 12.2914C18.685 12.678 18.685 13.3048 18.2984 13.6914L13.3982 18.5916L13.4053 18.5987Z" fill="currentColor"></path></svg>
+						</div>
+						<div class="col-auto p-0 text-start small align-middle fw-semibold d-none d-md-block fw-bold" style="width: 16px; color: #D04343">
+							{{ team.rank_change }}
+						</div>
 					{% else %}
-						<td class="py-0 small px-1 align-middle border-2">-</td>
+						<div class="col-auto p-0 d-flex align-items-center justify-content-center" style="width: 22px; height: 22px">
+							<div style="width: 8px; height: 8px; background: #e4e8f0; border-radius: 50%"></div>
+						</div>
+						<div class="col-auto p-0 text-start small align-middle fw-semibold d-none d-md-block" style="width: 16px; color: #D04343">
+							
+						</div>
 					{% endif %}
-					<td class="fw-semibold py-0 align-middle small">{{ team.rank }}</td>
-					<td class="p-0"><img class="border" alt="{{ team.name }}'s flag" style="margin: 2px 0;" src="{{ team.flag }}" height="22"></td>
-					<td class="text-start py-0 align-middle w-100" >{{ team.name|truncatechars:17 }}</td>
-					<td class="text-white py-0 small align-middle" style="background: #4279A8; border-top: 4px solid white; border-bottom: 4px solid white;">{{ team.points }}</td>
+					<div class="col-auto p-0 ps-3 ps-lg-3"><img class="border" alt="{{ team.name }}'s flag" style="margin: 2px 0; height: calc(25px + 0vw)" src="{{ team.flag }}"></div>
+					<div class="d-none d-md-block col text-start py-0 align-middle" >{{ team.name }}</div>
+					<div class="d-md-none col text-start py-0 align-middle fw-bold" >{{ team.short_name|upper }}</div>
+					<div class="col-auto p-0 small align-middle fw-bold me-3 me-lg-3">{{ team.points }}</div>
 					{% if team.points_change > 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #418500D0; border-left: 2px solid white;  border-top: 4px solid white; border-bottom: 4px solid white;">+{{ team.points_change }}</td>
+						<div class="col-auto p-0 small align-middle text-end fw-bold" style="color: #418500D0; width: 45px">+{{ team.points_change }}</div>
 					{% elif team.points_change < 0%}
-						<td class="text-white py-0 small align-middle px-1" style="background: #D04343; border-left: 2px solid white; border-top: 4px solid white; border-bottom: 4px solid white;">{{ team.points_change }}</td>
+						<div class="col-auto p-0 small align-middle text-end fw-bold" style="color: #D04343; width: 45px">{{ team.points_change }}</div>
 					{% else %}
-						<td></td>
+					<div class="col-auto p-0 small align-middle text-end text-secondary text-opacity-75 fw-bold" style="width: 45px">0.00</div>
 					{% endif %}
-				</tr>
+				</div>
 			{% endfor %}
-		</table>
 
 
         <p class="lead fw-normal pt-3">
