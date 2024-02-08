@@ -35,7 +35,7 @@
 				<table class="table table-striped small table-bordered border-white my-2">
 					<tr>
 						<td rowspan=2 class="fw-semibold py-0 align-middle small">{{ date.grouper|date:"d.m" }}</td>
-						<td class="p-0"><img class="border border-dark" style="margin: 0;" src="{{ match.team1.flag }}" height="22"></td>
+						<td class="p-0"><img class="border" style="margin: 0;" src="{{ match.team1.flag }}" height="22"></td>
 						<td class="text-start py-0 align-middle w-100" >{{ match.team1.name|truncatechars:20 }}</td>
 						{% calc match 1 1 0 as point %}
 						{% if point > 0%}
@@ -63,7 +63,7 @@
 						{% endif %}
 					</tr>
 					<tr>
-						<td class="p-0"><img class="border border-dark" style="margin: 0;" src="{{ match.team2.flag }}" height="22"></td>
+						<td class="p-0"><img class="border" style="margin: 0;" src="{{ match.team2.flag }}" height="22"></td>
 						<td class="text-start py-0 align-middle w-100" >{{ match.team2.name|truncatechars:18 }}</td>
 						{% calc match 2 0 1 as point %}
 						{% if point > 0%}
