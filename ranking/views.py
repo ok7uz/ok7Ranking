@@ -20,10 +20,8 @@ def get_teams(conf=None):
     if conf:
         if conf not in CONFS:
             return None
-
-        teams = teams.filter(conf=conf).annotate(
-            rank_change=F('conf_rank') - F('previous_conf_rank'),
-        )
+        
+        teams = teams.filter(conf=conf)
 
     return teams
 

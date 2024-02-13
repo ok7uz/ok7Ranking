@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="col-md-8 text-center m-auto">
+    <div class="col-lg-6 text-center m-auto">
         <div class="mt-4 text-dark py-2 small" style="color: #4279A8">
             <a href="/" class="px-1 text-decoration-none {% if not request.GET.conf %} fw-bolder {% endif %}" style="color: #4279A8">ALL</a>
             {% for conf in confs %}
@@ -23,7 +23,7 @@
                 </a>
             {% endfor %}
         </div>
-		<table class="table bg-light table-striped small table-bordered">
+		<table class="table bg-light table-striped small table-borderless">
 			{% for team in teams %}
 			<tr class="bg-secondary-subtle">
 				{% if team.rank_change < 0%}
@@ -34,7 +34,7 @@
 					<td class="py-0 small px-1 align-middle">-</td>
 				{% endif %}
 				<td class="fw-semibold py-0 align-middle small">{{ team.rank }}</td>
-				<td class="p-0"><img alt="{{ team.name }}'s flag" src="{{ team.flag }}" height="21"></td>
+				<td class="p-0"><img alt="{{ team.name }}'s flag" src="{{ team.flag }}" height="18"></td>
 				<td class="text-start py-0 align-middle w-100 small" >{{ team.name|truncatechars:17|upper }}</td>
 				<td class="text-white py-0 small align-middle" style="background: #4279A8">{{ team.points }}</td>
 				{% if team.points_change > 0%}
@@ -47,6 +47,8 @@
 			</tr>
 			{% endfor %}
 		</table>
+
+
 
 
         <p class="lead fw-normal pt-3">
