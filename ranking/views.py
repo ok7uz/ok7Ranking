@@ -50,7 +50,7 @@ def home_view(request):
     })
 
 
-@cache_page(300)
+@cache_page(1)
 def matches_view(request):
     page_number = request.GET.get("page")
     matches = Match.objects.filter(goal1__isnull=False).order_by('-date', 'tournament')
@@ -96,7 +96,7 @@ def country_view(request, country):
     })
 
 
-@cache_page(300)
+@cache_page(1)
 def stats_view(request):
     teams = Team.objects.all().annotate(
         points_change=F('points') - F('previous_points'),
